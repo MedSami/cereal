@@ -34,5 +34,18 @@ public interface ApiRequest {
             @Field("id_agriculteur") String id_agriculteur
     );
 
+    /*************** Envoyer message *******************/
+    @FormUrlEncoded
+    @POST("messageTransformateur.php")
+    Call<ResponseDataModel> EnvoyerMsg(
+            @Field("id_transformateur") String id_transformateur,
+            @Field("msg") String msg
+    );
 
+    /*************** Demande Facturation *******************/
+    @FormUrlEncoded
+    @POST("demandeFacturation.php")
+    Call<ResponseDataModel> Facturation(
+            @Field("id_transformateur") String id_transformateur
+    );
 }
