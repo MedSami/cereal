@@ -23,17 +23,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MenuAgriculteur extends AppCompatActivity {
-    Button btnAppeler, btnRendezVous, btnReglement;
+    Button btnMotifierPss, btnRendezVous, btnTransaction;
     String id_agriculteur;
-    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_agriculteur);
 
-        btnAppeler = findViewById(R.id.btnAppeler);
+        btnMotifierPss = findViewById(R.id.btnModifierPss);
         btnRendezVous = findViewById(R.id.btnRendezVous);
-        btnReglement = findViewById(R.id.btnReglement);
+        btnTransaction = findViewById(R.id.btnTransaction);
 
         Bundle data = getIntent().getExtras();
         if (data != null) {
@@ -41,10 +40,12 @@ public class MenuAgriculteur extends AppCompatActivity {
             Toast.makeText(this, id_agriculteur, Toast.LENGTH_SHORT).show();
         }
 
-        btnAppeler.setOnClickListener(new View.OnClickListener() {
+        btnMotifierPss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               CheckUserPermsions();
+
+
+
             }
         });
 
@@ -80,7 +81,7 @@ public class MenuAgriculteur extends AppCompatActivity {
             }
         });
 
-        btnReglement.setOnClickListener(new View.OnClickListener() {
+        btnTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -89,46 +90,4 @@ public class MenuAgriculteur extends AppCompatActivity {
 
     }
 
-
-
-
-    void CheckUserPermsions(){
-        if ( Build.VERSION.SDK_INT >= 23){
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) !=
-                    PackageManager.PERMISSION_GRANTED  ){
-                requestPermissions(new String[]{
-                                android.Manifest.permission.CALL_PHONE},
-                        REQUEST_CODE_ASK_PERMISSIONS);
-                return ;
-            }
-        }
-
-        AppelerServiceClient();// init the contact list
-
-    }
-
-    private void AppelerServiceClient() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "27181132"));
-        startActivity(intent);
-    }
-
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_ASK_PERMISSIONS:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    AppelerServiceClient();// init the contact list
-                } else {
-                    // Permission Denied
-                    Toast.makeText( this,"Tu doit accepter pour Appeler Administration" , Toast.LENGTH_SHORT)
-                            .show();
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
 }

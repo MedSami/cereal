@@ -1,5 +1,6 @@
 package com.aziza.cereal.Api;
 
+import com.aziza.cereal.Inscrire;
 import com.aziza.cereal.Model.ResponseDataModel;
 
 import retrofit2.Call;
@@ -13,26 +14,30 @@ public interface ApiRequest {
 
     /******************** Authentification Login*******************/
     @GET("Login.php")
-    Call<ResponseDataModel> Login(@Query("identifiant") String identifiant,
-                                  @Query("type") int type);
+    Call<ResponseDataModel> Login(@Query("cin") String cin,
+                                  @Query("acteur") int acteur);
 
 
     /*************** Inscription Agriculteur *******************/
     @FormUrlEncoded
     @POST("Inscrire.php")
-    Call<ResponseDataModel> Inscrire(
+    Call<ResponseDataModel>Inscrire(
             @Field("nom") String nom,
             @Field("prenom") String prenom,
             @Field("motdepasse") String motdepasse,
-            @Field("identifiant") String identifiant
-    );
+            @Field("numTel") String numTel,
+            @Field("adresse") String adresse,
+            @Field("email") String email,
+
+            @Field("cin") String cin,
+            @Field("acteur") String acteur
+            );
 
     /*************** Demande Rendez Vous *******************/
     @FormUrlEncoded
     @POST("DemandeRendezVous.php")
     Call<ResponseDataModel> RendezVous(
-            @Field("id_agriculteur") String id_agriculteur
-    );
+            @Field("id_agriculteur") String id_agriculteur);
 
     /*************** Envoyer message *******************/
     @FormUrlEncoded

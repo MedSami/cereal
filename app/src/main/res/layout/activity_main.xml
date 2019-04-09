@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/cereal" />
 
     <EditText
-        android:id="@+id/edtIdentifiant"
+        android:id="@+id/edtCin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -30,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="Saisir Votre Identifiant "
+        android:hint="Saisir Votre CIN"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtIdentifiant" />
+        app:layout_constraintTop_toBottomOf="@+id/edtCin" />
 
     <Button
         android:id="@+id/btnEntrer"

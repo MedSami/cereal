@@ -16,6 +16,9 @@ import com.aziza.cereal.Api.ApiRequest;
 import com.aziza.cereal.Api.RetrofitServer;
 import com.aziza.cereal.Model.ResponseDataModel;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-EditText edtIdentifiant,edtPassword;
+EditText edtCin,edtPassword;
 Button btnEntrer,btnInscrire;
 int index;
     @Override
@@ -32,7 +35,7 @@ int index;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    edtIdentifiant=findViewById(R.id.edtIdentifiant);
+    edtCin =findViewById(R.id.edtCin);
     edtPassword=findViewById(R.id.edtPassword);
     btnEntrer=findViewById(R.id.btnEntrer);
     btnInscrire=findViewById(R.id.btnInscrire);
@@ -84,14 +87,14 @@ int index;
     btnEntrer.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(edtIdentifiant.getText().toString().equals("")){
-                Toast.makeText(MainActivity.this, "Saisir Votre Identifiant SVP", Toast.LENGTH_SHORT).show();
+            if(edtCin.getText().toString().equals("")){
+                Toast.makeText(MainActivity.this, "Saisir Votre CIN SVP", Toast.LENGTH_SHORT).show();
             }else if (edtPassword.getText().toString().equals("")){
                 Toast.makeText(MainActivity.this, "Saisir Votre Mot De Passe SVP", Toast.LENGTH_SHORT).show();
             }else {
                 ApiRequest api= RetrofitServer.getClient().create(ApiRequest.class);
                 //Instance Call Methode
-                Call<ResponseDataModel> Login=api.Login(edtIdentifiant.getText().toString(),index);
+                Call<ResponseDataModel> Login=api.Login(edtCin.getText().toString(),index);
 
                 Login.enqueue(new Callback<ResponseDataModel>() {
                     @Override
@@ -99,24 +102,25 @@ int index;
 
                         if(response.isSuccessful()){
                             if(!response.body().getResult().isEmpty()){
-                                if(response.body().getResult().get(0).getIdentifiant().equals(edtIdentifiant.getText().toString())){
-                                    if(response.body().getResult().get(0).getMotDePasse().equals(edtPassword.getText().toString())){
+                                String CryptPass=convertPassMd5(edtPassword.getText().toString());
+                                if(response.body().getResult().get(0).getCin().equals(edtCin.getText().toString())){
+                                    if(response.body().getResult().get(0).getMotDePasse().equals(CryptPass)){
                                         if(index==0){
 
                                             Intent intent=new Intent(MainActivity.this,MenuAgriculteur.class);
-                                            intent.putExtra("id_agriculteur",""+response.body().getResult().get(0).getId());
+                                            intent.putExtra("id_agriculteur",""+response.body().getResult().get(0).getId_utilisateur());
                                             startActivity(intent);
                                         }
                                         if(index==1){
 
                                             Intent intent=new Intent(MainActivity.this,MenuTransformateur.class);
-                                            intent.putExtra("id_transformateur",""+response.body().getResult().get(0).getId());
+                                            intent.putExtra("id_transformateur",""+response.body().getResult().get(0).getId_utilisateur());
                                             startActivity(intent);
                                         }
                                         if(index==2){
 
                                             Intent intent=new Intent(MainActivity.this,MenuCollecteur.class);
-                                            intent.putExtra("id_collecteur",""+response.body().getResult().get(0).getId());
+                                            intent.putExtra("id_collecteur",""+response.body().getResult().get(0).getId_utilisateur());
                                             startActivity(intent);
                                         }
 
@@ -125,10 +129,10 @@ int index;
                                     }
                                 }
                             }else {
-                                Toast.makeText(MainActivity.this, "Identifiant Incorrect", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "CIN Incorrect", Toast.LENGTH_SHORT).show();
                             }
                         }else {
-                            Toast.makeText(MainActivity.this, "Identifiant Incorrect", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "CIN Incorrect", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -144,5 +148,24 @@ int index;
         }
     });
 
+    }
+
+
+
+    public static String convertPassMd5(String pass) {
+        String password = null;
+        MessageDigest mdEnc;
+        try {
+            mdEnc = MessageDigest.getInstance("MD5");
+            mdEnc.update(pass.getBytes(), 0, pass.length());
+            pass = new BigInteger(1, mdEnc.digest()).toString(16);
+            while (pass.length() < 32) {
+                pass = "0" + pass;
+            }
+            password = pass;
+        } catch (NoSuchAlgorithmException e1) {
+            e1.printStackTrace();
+        }
+        return password;
     }
 }
