@@ -16,7 +16,17 @@ public interface ApiRequest {
     @GET("Login.php")
     Call<ResponseDataModel> Login(@Query("cin") String cin,
                                   @Query("acteur") int acteur);
+    /******************** Modifier Mot De Passe *******************/
+    @FormUrlEncoded
+    @POST("ModifierPss.php")
+    Call<ResponseDataModel> ModifierPss(@Field("id") String id_utilisateur,
+                                        @Field("ancien") String AncienPss,
+                                        @Field("nouveau") String NouveauPss);
 
+
+    /******************** Transactions *******************/
+    @GET("SelectTransaction.php")
+    Call<ResponseDataModel> Transactions(@Query("id_agriculteur") String id_agriculteur);
 
     /*************** Inscription Agriculteur *******************/
     @FormUrlEncoded
@@ -28,7 +38,6 @@ public interface ApiRequest {
             @Field("numTel") String numTel,
             @Field("adresse") String adresse,
             @Field("email") String email,
-
             @Field("cin") String cin,
             @Field("acteur") String acteur
             );

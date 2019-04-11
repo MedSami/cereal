@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class MenuAgriculteur extends AppCompatActivity {
     Button btnMotifierPss, btnRendezVous, btnTransaction;
-    String id_agriculteur;
+    String id_agriculteur,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +37,16 @@ public class MenuAgriculteur extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         if (data != null) {
             id_agriculteur = data.getString("id_agriculteur");
-            Toast.makeText(this, id_agriculteur, Toast.LENGTH_SHORT).show();
+            password = data.getString("Password");
         }
 
         btnMotifierPss.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+                        public void onClick(View view) {
+                Intent i=new Intent(MenuAgriculteur.this,ModifierMotDePasse.class);
+                i.putExtra("id_agriculteur",id_agriculteur);
+                i.putExtra("password",password);
+                startActivity(i);
 
 
             }
@@ -58,20 +61,23 @@ public class MenuAgriculteur extends AppCompatActivity {
                 RendezVous.enqueue(new Callback<ResponseDataModel>() {
                     @Override
                     public void onResponse(Call<ResponseDataModel> call, Response<ResponseDataModel> response) {
-                        if(response.isSuccessful()){
-                            AlertDialog alertDialog = new AlertDialog.Builder(MenuAgriculteur.this).create();
-                            alertDialog.setTitle("Info");
-                            alertDialog.setMessage("Merci, Bientôt on va repondre a votre demande");
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            alertDialog.show();
+
+                           if (response.body().getCode().equals("1")) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(MenuAgriculteur.this).create();
+                                alertDialog.setTitle("Info");
+                                alertDialog.setMessage("Merci, Bientôt on va repondre a votre demande");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.show();
+                            }
+                        else {
+                            Toast.makeText(MenuAgriculteur.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onFailure(Call<ResponseDataModel> call, Throwable t) {
                         Toast.makeText(MenuAgriculteur.this, "Problem Connexion", Toast.LENGTH_SHORT).show();
@@ -84,7 +90,10 @@ public class MenuAgriculteur extends AppCompatActivity {
         btnTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i=new Intent(MenuAgriculteur.this,ListTransactions.class);
+                i.putExtra("id_agriculteur",id_agriculteur);
 
+                startActivity(i);
             }
         });
 

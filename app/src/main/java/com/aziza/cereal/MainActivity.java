@@ -109,6 +109,7 @@ int index;
 
                                             Intent intent=new Intent(MainActivity.this,MenuAgriculteur.class);
                                             intent.putExtra("id_agriculteur",""+response.body().getResult().get(0).getId_utilisateur());
+                                            intent.putExtra("Password",""+response.body().getResult().get(0).getMotDePasse());
                                             startActivity(intent);
                                         }
                                         if(index==1){
