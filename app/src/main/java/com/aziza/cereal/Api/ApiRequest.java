@@ -26,7 +26,12 @@ public interface ApiRequest {
 
     /******************** Transactions *******************/
     @GET("SelectTransaction.php")
-    Call<ResponseDataModel> Transactions(@Query("id_agriculteur") String id_agriculteur);
+    Call<ResponseDataModel> Transactions(@Query("idAgriculteur") String id_agriculteur);
+
+
+    /******************** Transactions *******************/
+    @GET("SelectTypeCereal.php")
+    Call<ResponseDataModel> TypeCereal();
 
     /*************** Inscription Agriculteur *******************/
     @FormUrlEncoded
@@ -54,6 +59,15 @@ public interface ApiRequest {
     Call<ResponseDataModel> EnvoyerMsg(
             @Field("id_transformateur") String id_transformateur,
             @Field("msg") String msg
+    );
+
+    /*************** Envoyer message *******************/
+    @FormUrlEncoded
+    @POST("PasserCommande.php")
+    Call<ResponseDataModel> Commande(
+            @Field("id_transformateur") String id_transformateur,
+            @Field("id_type_cereal") int id_type_cereal,
+            @Field("quantite") String quantite
     );
 
     /*************** Demande Facturation *******************/

@@ -7,7 +7,7 @@
     tools:context=".MenuTransformateur">
 
     <Button
-        android:id="@+id/btnContacter"
+        android:id="@+id/btnPasseCommande"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -15,23 +15,10 @@
         android:layout_marginTop="212dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Contacter Administration"
+        android:text="Passe Commande"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnFacture"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Demande de Facture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnContacter" />
 </android.support.constraint.ConstraintLayout>
