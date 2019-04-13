@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuTransformateur">
+    tools:context=".MenuTransformateur"
+    android:background="@drawable/gradient_background">
 
     <Button
         android:id="@+id/btnPasseCommande"
@@ -16,6 +17,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Passe Commande"
+        android:drawableLeft="@drawable/ic_check_box_black_24dp"
+        android:background="@drawable/gradient_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.aziza.cereal.Api.ApiRequest;
 import com.aziza.cereal.Api.RetrofitServer;
-import com.aziza.cereal.Model.DataModel;
 import com.aziza.cereal.Model.ResponseDataModel;
 
 import java.util.ArrayList;
@@ -22,25 +21,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PasserCommande extends AppCompatActivity {
-String id_transformateur;
-Button btnEnvoyer;
-EditText edtQuantite;
+public class Arrivage extends AppCompatActivity {
 int index;
-
+Button btnEnregistrer;
+EditText edtQuantite, edtMatricule;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passer_commande);
-        btnEnvoyer=findViewById(R.id.btnEnvoyer);
-        edtQuantite=findViewById(R.id.edtQuantite);
-
-
-        Bundle data = getIntent().getExtras();
-        if (data != null) {
-            id_transformateur = data.getString("id_transformateur");
-            Toast.makeText(this, id_transformateur, Toast.LENGTH_SHORT).show();
-        }
+        setContentView(R.layout.activity_arrivage);
+btnEnregistrer=findViewById(R.id.btnEnregistrer);
+edtQuantite=findViewById(R.id.edtQuantite);
+edtMatricule =findViewById(R.id.edtMatricule);
 
 
 
@@ -77,36 +68,34 @@ int index;
             }
         });
 
-
-
-
-
-
-        btnEnvoyer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(index==0){
-                    Toast.makeText(PasserCommande.this, "Chisir Type Cereal SVP", Toast.LENGTH_SHORT).show();
+btnEnregistrer.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+         if(index==0){
+                    Toast.makeText(Arrivage.this, "Chisir Type Cereal SVP", Toast.LENGTH_SHORT).show();
                 }else if(edtQuantite.getText().toString().equals("")){
-                    Toast.makeText(PasserCommande.this, "Saisir Quantite En KG SVP", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Arrivage.this, "Saisir Quantite En KG SVP", Toast.LENGTH_SHORT).show();
+                }else if(edtMatricule.getText().toString().equals("")){
+                    Toast.makeText(Arrivage.this, "Saisir Matricule SVP", Toast.LENGTH_SHORT).show();
                 }else {
-                    ApiRequest api= RetrofitServer.getClient().create(ApiRequest.class);
+                    ApiRequest api = RetrofitServer.getClient().create(ApiRequest.class);
                     //Instance Call Methode
-                    Call<ResponseDataModel> passerCommande=api.Commande(id_transformateur,index,edtQuantite.getText().toString());
-                    passerCommande.enqueue(new Callback<ResponseDataModel>() {
+                    Call<ResponseDataModel> enregistrerArrivage = api.EnregistrerCereal(index,edtQuantite.getText().toString(), edtMatricule.getText().toString());
+                    enregistrerArrivage.enqueue(new Callback<ResponseDataModel>() {
                         @Override
                         public void onResponse(Call<ResponseDataModel> call, Response<ResponseDataModel> response) {
-                            Toast.makeText(PasserCommande.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Arrivage.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onFailure(Call<ResponseDataModel> call, Throwable t) {
-                            Toast.makeText(PasserCommande.this, "Problem Connexion", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Arrivage.this, "Problem Connexion", Toast.LENGTH_SHORT).show();
                         }
                     });
+
+         }
                 }
-            }
-        });
+});
 
     }
 }

@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuCollecteur">
+    tools:context=".MenuCollecteur"
+    android:background="@drawable/gradient_background">
 
     <Button
-        android:id="@+id/btnTraiter"
+        android:id="@+id/btnArrivage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -15,22 +16,11 @@
         android:layout_marginTop="196dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Traiter Des quantites de cerals réçus"
+        android:drawableLeft="@drawable/ic_save_black_24dp"
+        android:background="@drawable/gradient_button"
+        android:text="Enregistrer Arrivage cereals"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnNotif"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Envoi une Notification de reception"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTraiter" />
 </android.support.constraint.ConstraintLayout>

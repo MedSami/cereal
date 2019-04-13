@@ -76,4 +76,14 @@ public interface ApiRequest {
     Call<ResponseDataModel> Facturation(
             @Field("id_transformateur") String id_transformateur
     );
+
+
+    /*************** Inscription Agriculteur *******************/
+    @FormUrlEncoded
+    @POST("EnregistrerCereal.php")
+    Call<ResponseDataModel> EnregistrerCereal(
+            @Field("id_type_cereal") int id_type_cereal,
+            @Field("quantite") String quantite,
+            @Field("matricule") String matriculeBateau
+    );
 }

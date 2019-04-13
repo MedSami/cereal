@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuAgriculteur">
+    tools:context=".MenuAgriculteur"
+    android:background="@drawable/gradient_background">
 
     <Button
         android:id="@+id/btnRendezVous"
@@ -16,6 +17,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Demander Rendez Vous"
+        android:drawableLeft="@drawable/ic_access_time_black_24dp"
+        android:background="@drawable/gradient_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +33,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:drawableLeft="@drawable/ic_check_box_black_24dp"
+        android:background="@drawable/gradient_button"
         android:text="Consulter transaction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +49,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:drawableLeft="@drawable/ic_visibility_off_black_24dp"
+        android:background="@drawable/gradient_button"
         android:text="Modifier mot de passe "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
