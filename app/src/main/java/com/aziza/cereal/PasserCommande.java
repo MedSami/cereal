@@ -39,7 +39,6 @@ int index;
         Bundle data = getIntent().getExtras();
         if (data != null) {
             id_transformateur = data.getString("id_transformateur");
-            Toast.makeText(this, id_transformateur, Toast.LENGTH_SHORT).show();
         }
 
 

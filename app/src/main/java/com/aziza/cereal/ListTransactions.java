@@ -34,7 +34,6 @@ public class ListTransactions extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         if (data != null) {
             id_agriculteur = data.getString("id_agriculteur");
-            Toast.makeText(ListTransactions.this, id_agriculteur, Toast.LENGTH_SHORT).show();
 
         }
 
