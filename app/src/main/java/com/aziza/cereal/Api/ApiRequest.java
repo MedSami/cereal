@@ -1,6 +1,7 @@
 package com.aziza.cereal.Api;
 
 import com.aziza.cereal.Inscrire;
+import com.aziza.cereal.Model.Reponse;
 import com.aziza.cereal.Model.ResponseDataModel;
 
 import retrofit2.Call;
@@ -52,6 +53,11 @@ public interface ApiRequest {
     @POST("DemandeRendezVous.php")
     Call<ResponseDataModel> RendezVous(
             @Field("id_agriculteur") String id_agriculteur);
+    /*************** rEPONSE Rendez Vous *******************/
+
+    @GET("SelectReponseRdv.php")
+    Call<ResponseDataModel> ReponseRendezVous(
+            @Query("idAgriculteur") String id_agriculteur);
 
     /*************** Envoyer message *******************/
     @FormUrlEncoded

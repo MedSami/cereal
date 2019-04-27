@@ -65,6 +65,7 @@ public class RetrofitServer {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
+
         if (retrofit==null){
             retrofit=new Retrofit.Builder().client(getUnsafeOkHttpClient().build())
                     .baseUrl(Base_Url).addConverterFactory(GsonConverterFactory.create(gson)).build();

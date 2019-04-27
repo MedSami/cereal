@@ -121,7 +121,7 @@ public class Inscrire extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseDataModel> call, Throwable t) {
-                        Toast.makeText(Inscrire.this, "Problem Connexion", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Inscrire.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

@@ -23,7 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MenuAgriculteur extends AppCompatActivity {
-    Button btnMotifierPss, btnRendezVous, btnTransaction;
+    Button btnMotifierPss, btnRendezVous, btnTransaction,btnReponse;
     String id_agriculteur,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class MenuAgriculteur extends AppCompatActivity {
         btnMotifierPss = findViewById(R.id.btnModifierPss);
         btnRendezVous = findViewById(R.id.btnRendezVous);
         btnTransaction = findViewById(R.id.btnTransaction);
+        btnReponse = findViewById(R.id.btnReponse);
 
         Bundle data = getIntent().getExtras();
         if (data != null) {
@@ -94,6 +95,57 @@ public class MenuAgriculteur extends AppCompatActivity {
                 i.putExtra("id_agriculteur",id_agriculteur);
 
                 startActivity(i);
+            }
+        });
+
+        btnReponse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiRequest api= RetrofitServer.getClient().create(ApiRequest.class);
+                //Instance Call Methode
+                Call<ResponseDataModel> ReponseRendezVous=api.ReponseRendezVous(id_agriculteur);
+ReponseRendezVous.enqueue(new Callback<ResponseDataModel>() {
+    @Override
+    public void onResponse(Call<ResponseDataModel> call, Response<ResponseDataModel> response) {
+        if (response.isSuccessful()) {
+            if (!response.body().getResult().isEmpty()) {
+                if (response.body().getResult().get(0).getReponse().equals("Pas encore")) {
+
+
+                    AlertDialog alertDialog = new AlertDialog.Builder(MenuAgriculteur.this).create();
+                    alertDialog.setTitle("Info");
+                    alertDialog.setMessage("Bientôt on va repondre a votre demande");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
+            else {
+                AlertDialog alertDialog = new AlertDialog.Builder(MenuAgriculteur.this).create();
+                alertDialog.setTitle("Info");
+                alertDialog.setMessage(response.body().getResult().get(0).getReponse());
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+
+            }}else {
+                Toast.makeText(MenuAgriculteur.this, "Empty Response", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(Call<ResponseDataModel> call, Throwable t) {
+        Toast.makeText(MenuAgriculteur.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+});
             }
         });
 

@@ -2,11 +2,11 @@ package com.aziza.cereal.Model;
 
 public class DataModel {
     String id, nom, prenom, identifiant, motDePasse;
-    String id_utilisateur,numTel,addresse,cin;
+    String id_utilisateur,numTel,addresse,cin,reponse;
     String id_detail_transaction,date_trans,quantite_trans,
             id_type_cereal,id_trans,id_agriculteur,id_details_transaction,id_type,type_cereal;
 
-    public DataModel(String id, String nom, String prenom, String identifiant, String motDePasse,
+    public DataModel(String id, String nom, String prenom,String reponse, String identifiant, String motDePasse,
                      String id_utilisateur, String numTel, String addresse, String cin,
                      String id_detail_transaction, String date_trans, String quantite_trans,
                      String id_type_cereal, String id_trans,
@@ -21,6 +21,7 @@ public class DataModel {
         this.numTel = numTel;
         this.addresse = addresse;
         this.cin = cin;
+        this.reponse=reponse;
         this.id_detail_transaction = id_detail_transaction;
         this.date_trans = date_trans;
         this.quantite_trans = quantite_trans;
@@ -47,6 +48,10 @@ public class DataModel {
 
     public String getId_detail_transaction() {
         return id_detail_transaction;
+    }
+
+    public String getReponse() {
+        return reponse;
     }
 
     public String getDate_trans() {
